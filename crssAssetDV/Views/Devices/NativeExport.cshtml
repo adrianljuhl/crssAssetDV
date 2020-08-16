@@ -1,0 +1,83 @@
+﻿@model IEnumerable<crssAssetDV.Models.DevicesViewModel>
+@{
+    ViewBag.Title = "NativeExport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>NativeExport</h2>
+<a href="@Url.Action("ExportToNative","Devices")">Export To Excel</a>
+
+<div class="container">
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Description</th>
+                <th>Edquip</th>
+                <th>Serial</th>
+                <th>Specialised?</th>
+                <th>Building</th>
+                <th>Power?</th>
+                <th>Cable?</th>
+                <th>Cover?</th>
+                <th>Accessories</th>
+                <th>Damaged?</th>
+                <th>WriteOff?</th>
+                <th>Type?</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (item.WriteOff == true)
+                    {
+                        <tr style="background-color:pink">
+                            <td>@item.Id</td>
+                            <td>@item.Brand</td>
+                            <td>@item.Model</td>
+
+                            <td>@item.Description</td>
+                            <td>@item.Edquip</td>
+                            <td>@item.Serial</td>
+                            <td>@item.SpecialisedDevice</td>
+                            <td>@item.BuildingLocation</td>
+                            <td>@item.HasPowerSupply</td>
+                            <td>@item.HasPowerCable</td>
+                            <td>@item.HasCover</td>
+                            <td>@item.Accessories</td>
+                            <td>@item.DeviceNotes</td>
+                            <td>@item.WriteOff</td>
+                            <td>@item.TypeOfDevice</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Brand</td>
+                            <td>@item.Model</td>
+                            <td>@item.Description</td>
+                            <td>@item.Edquip</td>
+                            <td>@item.Serial</td>
+                            <td>@item.SpecialisedDevice</td>
+                            <td>@item.BuildingLocation</td>
+                            <td>@item.HasPowerSupply</td>
+                            <td>@item.HasPowerCable</td>
+                            <td>@item.HasCover</td>
+                            <td>@item.Accessories</td>
+                            <td>@item.DeviceNotes</td>
+                            <td>@item.WriteOff</td>
+                            <td>@item.TypeOfDevice</td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+    
+</div>
+

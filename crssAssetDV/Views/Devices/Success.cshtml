@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Success";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>The following devices have been added.</h2>
+</p>
+<div>
+    <h6>@Html.ActionLink("Home", "Index", "Home") | @Html.ActionLink("Back to List", "Index") </h6>
+</div>
+</p>
+<table cellpadding="2" cellspacing="2" border="1">
+    <tr>
+
+        <th>Database Id</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Description</th>
+        <th>Serial</th>
+        <th>Edquip</th>
+    </tr>
+    @foreach (var p in ViewBag.ListDevices)
+    {
+        <tr>
+            <td>@p.Id</td>
+            <td>@p.Brand</td>
+            <td>@p.Model</td>
+            <td>@p.Description</td>
+            <td>@p.Serial</td>
+            <td>@p.Edquip</td>
+        </tr>
+    }
+
+</table>
+
+

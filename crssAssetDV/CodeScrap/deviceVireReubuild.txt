@@ -1,0 +1,125 @@
+﻿@model IEnumerable<crssAssetDV.Models.Devices>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("New", "Create") | 
+    @Html.ActionLink("Import", "Import") |
+
+    @Html.ActionLink("Export to CSV", "ExportContentToCSv") |
+    @Html.ActionLink("Export To Excel", "NativeExport") |
+</p>
+<div>
+    <table class="table table-responsive">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Edquip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Serial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpecialisedDevice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BuildingLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HasPowerSupply)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HasPowerCable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HasCover)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accessories)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Damaged)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WriteOff)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.TypeOfDevice)
+            </th>*@
+            <th>
+                Type
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Brand)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Edquip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Serial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpecialisedDevice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuildingLocation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasPowerSupply)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasPowerCable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasCover)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Accessories)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Damaged)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WriteOff)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeOfDevice.Type)
+
+        </td>
+
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+        }
+
+    </table>
+</div>

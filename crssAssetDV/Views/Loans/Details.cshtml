@@ -1,0 +1,83 @@
+﻿@model crssAssetDV.Models.Loans
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Loans</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LoanType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoanType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuppliedPowerBlock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuppliedPowerBlock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuppliedCable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuppliedCable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuppliedCover)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuppliedCover)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.oampsUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.oampsUpdated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.intuneUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.intuneUpdated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.edquipSigned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.edquipSigned)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
