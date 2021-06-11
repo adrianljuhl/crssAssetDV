@@ -8,55 +8,65 @@
         public override void Up()
         {
             CreateTable(
+                "dbo.CableSelectOptions",
+                c => new
+                    {
+                        Id = c.Decimal(nullable: false, precision: 18, scale: 0, identity: true),
+                        Option = c.String(),
+                  
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Devices",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Decimal(nullable: false, precision: 18, scale: 0, identity: true),
                         Brand = c.String(),
                         Model = c.String(),
+                        TypeOfDeviceId = c.Decimal(nullable: false, precision: 18, scale: 0),
                         Description = c.String(),
-                        OampsUpdated = c.Boolean(nullable: false),
-                        IntuneUpdate = c.Boolean(nullable: false),
-                        IndemnitySigned = c.Boolean(nullable: false),
-                        DeviceTypeId = c.Byte(nullable: false),
                         Edquip = c.String(),
                         Serial = c.String(),
-                        WriteOff = c.Boolean(nullable: false),
-                        DeviceNotes_Id = c.Int(),
-                        RepairTypes_Id = c.Int(),
+                        RoleDeviceId = c.Decimal(nullable: true, precision: 18, scale: 0),
+                        BuildingLocation = c.String(),
+                        HasPowerSupplyRefId = c.Decimal(nullable: true, precision: 18, scale: 0),
+                        HasPowerCableRefId = c.Decimal(nullable: true, precision: 18, scale: 0),
+                        HasCoverRefId = c.Decimal(nullable: true, precision: 18, scale: 0),
+                        Accessories = c.String(),
+                        DamagedRefId = c.Decimal(nullable: true, precision: 18, scale: 0),
+                        DeviceNotes = c.String(),
+                        WriteOff = c.Boolean(nullable: true),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.DeviceNotes", t => t.DeviceNotes_Id)
-                .ForeignKey("dbo.DeviceTypes", t => t.DeviceTypeId, cascadeDelete: true)
-                .ForeignKey("dbo.RepairTypes", t => t.RepairTypes_Id)
-                .Index(t => t.DeviceTypeId)
-                .Index(t => t.DeviceNotes_Id)
-                .Index(t => t.RepairTypes_Id);
+                .ForeignKey("dbo.CableSelectOptions", t => t.HasPowerCableRefId, cascadeDelete: true)
+                .ForeignKey("dbo.CoverSelectOptions", t => t.HasCoverRefId, cascadeDelete: true)
+                .ForeignKey("dbo.DamagedSelectOptions", t => t.DamagedRefId, cascadeDelete: true)
+                .ForeignKey("dbo.PowerSupplySelectOptions", t => t.HasPowerSupplyRefId, cascadeDelete: true)
+                .ForeignKey("dbo.RoleDevices", t => t.RoleDeviceId, cascadeDelete: true)
+                .ForeignKey("dbo.TypeOfDevices", t => t.TypeOfDeviceId, cascadeDelete: true)
+                .Index(t => t.TypeOfDeviceId)
+                .Index(t => t.RoleDeviceId)
+                .Index(t => t.HasPowerSupplyRefId)
+                .Index(t => t.HasPowerCableRefId)
+                .Index(t => t.HasCoverRefId)
+                .Index(t => t.DamagedRefId);
             
             CreateTable(
-                "dbo.DeviceNotes",
+                "dbo.CoverSelectOptions",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
-                        DeviceNote = c.String(),
+                        Id = c.Decimal(nullable: false, precision: 18, scale: 0, identity: true),
+                        Option = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.DeviceTypes",
+                "dbo.DamagedSelectOptions",
                 c => new
                     {
-                        Id = c.Byte(nullable: false),
-                        DeviceTypes = c.String(nullable: false, maxLength: 40),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.RepairTypes",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        RepairType = c.String(),
+                        Id = c.Decimal(nullable: false, precision: 18, scale: 0, identity: true),
+                        Option = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -64,46 +74,69 @@
                 "dbo.Loans",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
-                        SuppliedPowerBlock = c.Boolean(nullable: false),
-                        SuppliedCable = c.Boolean(nullable: false),
-                        SuppliedCover = c.Boolean(nullable: false),
-                        Approvers_Id = c.Int(),
-                        Devices_Id = c.Int(),
-                        People_Id = c.Int(),
+                        Id = c.Decimal(nullable: false, precision: 18, scale: 0),
+                        PeopleId = c.Decimal(nullable: false, precision: 18, scale: 0),
+                        DevicesId = c.Decimal(nullable: false, precision: 18, scale: 0),
+                        ApproversId = c.Decimal(nullable: false, precision: 18, scale: 0),
+                        LoanType = c.String(),
+                        Location = c.String(),
+                        SuppliedPowerBlock = c.String(),
+                        SuppliedCable = c.String(),
+                        SuppliedCover = c.String(),
+                        OampsUpdated = c.String(),
+                        IntuneUpdated = c.String(),
+                        EdquipSigned = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Approvers", t => t.Approvers_Id)
-                .ForeignKey("dbo.Devices", t => t.Devices_Id)
-                .ForeignKey("dbo.People", t => t.People_Id)
-                .Index(t => t.Approvers_Id)
-                .Index(t => t.Devices_Id)
-                .Index(t => t.People_Id);
+                .ForeignKey("dbo.Devices", t => t.DevicesId, cascadeDelete: true)
+                .Index(t => t.DevicesId);
             
             CreateTable(
-                "dbo.Approvers",
+                "dbo.PowerSupplySelectOptions",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
-                        People_Id = c.Int(),
+                        Id = c.Decimal(nullable: false, precision: 18, scale: 0, identity: true),
+                        Option = c.String(),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.People", t => t.People_Id)
-                .Index(t => t.People_Id);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.People",
+                "dbo.RoleDevices",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
-                        Staff = c.Boolean(nullable: false),
-                        FirstName = c.String(nullable: false),
-                        LastName = c.String(nullable: false),
-                        Email = c.String(),
-                        Address1 = c.String(),
-                        Address2 = c.String(),
-                        Address3 = c.String(),
-                        Phone = c.String(),
+                        Id = c.Decimal(nullable: false, precision: 18, scale: 0, identity: true),
+                        Role = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.TypeOfDevices",
+                c => new
+                    {
+                        Id = c.Decimal(nullable: false, precision: 18, scale: 0, identity: true),
+                        Type = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.DevicesViewModels",
+                c => new
+                    {
+                        Id = c.Decimal(nullable: false, precision: 18, scale: 0),
+                        Brand = c.String(),
+                        Model = c.String(),
+                        Description = c.String(),
+                        Edquip = c.String(),
+                        Serial = c.String(),
+                        SpecialisedDevice = c.String(),
+                        BuildingLocation = c.String(),
+                        HasPowerSupplyRefId = c.String(),
+                        HasPowerCableRefId = c.String(),
+                        HasCoverRefId = c.String(),
+                        Accessories = c.String(),
+                        DeviceNotes = c.String(),
+                        WriteOff = c.Boolean(nullable: false),
+                        TypeOfDevice = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -175,36 +208,37 @@
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
 
+            Sql("INSERT INTO CableSelectOption(Option) Values('--Please Select--')");
+            Sql("INSERT INTO CableSelectOption(Option) Values('N/A')");
+            Sql("INSERT INTO CableSelectOption(Option) Values('No')");
+            Sql("INSERT INTO CableSelectOption(Option) Values('Yes')");
 
-            {
+            Sql("INSERT INTO PowerSupplySelectOption(Option) Values('--Please Select--')");
+            Sql("INSERT INTO PowerSupplySelectOption(Option) Values('N/A')");
+            Sql("INSERT INTO PowerSupplySelecttOption(Option) Values('No')");
+            Sql("INSERT INTO PowerSupplySelectOption(Option) Values('Yes')");
 
-                Sql("INSERT INTO DeviceTypes (Id, DeviceTypes) VALUES (1, 'iPad')");
-                Sql("INSERT INTO DeviceTypes (Id, DeviceTypes) VALUES (2, 'CFT Laptop')");
-                Sql("INSERT INTO DeviceTypes (Id, DeviceTypes) VALUES (3, 'Network Switch')");
-                Sql("INSERT INTO DeviceTypes (Id, DeviceTypes) VALUES (4, 'PC')");
-                Sql("INSERT INTO DeviceTypes (Id, DeviceTypes) VALUES (5, 'Phone')");
-                Sql("INSERT INTO DeviceTypes (Id, DeviceTypes) VALUES (6, 'School Laptop')");
-                Sql("INSERT INTO DeviceTypes (Id, DeviceTypes) VALUES (7, 'Server')");
-                Sql("INSERT INTO DeviceTypes (Id, DeviceTypes) VALUES (8, 'Phone')");
-                Sql("INSERT INTO DeviceTypes (Id, DeviceTypes) VALUES (9, 'Other')");
+            Sql("INSERT INTO CoverSelectOption(Option) Values('--Please Select--')");
+            Sql("INSERT INTO CoverSelectOption(Option) Values('N/A')");
+            Sql("INSERT INTO CoverSelectOption(Option) Values('No')");
+            Sql("INSERT INTO CoverSelectOption(Option) Values('Yes')");
 
-                Sql("SET IDENTITY_INSERT People ON");
-                Sql("INSERT INTO People (Id, Staff, FirstName, LastName) VALUES (1, 0, 'Ashtiva', 'Juhl')");
-                Sql("INSERT INTO People (Id, Staff, FirstName, LastName) VALUES (2, 1, 'Adrian', 'Juhl')");
-                Sql("INSERT INTO People (Id, Staff, FirstName, LastName) VALUES (3, 1, 'Michael', 'Gaga')");
-                Sql("SET IDENTITY_INSERT People OFF");
+            Sql("INSERT INTO DamagedSelectOption(Option) Values('--Please Select--')");
+            Sql("INSERT INTO DamagedSelectOption(Option) Values('No')");
+            Sql("INSERT INTO DamagedSelectOption(Option) Values('Yes')");
 
-                Sql("SET IDENTITY_INSERT RepairTypes ON");
-                Sql("INSERT INTO RepairTypes (Id, RepairType) VALUES (1, 'Battery')");
-                Sql("INSERT INTO RepairTypes (Id, RepairType) VALUES (2, 'Broken Screen')");
-                Sql("INSERT INTO RepairTypes (Id, RepairType) VALUES (3, 'Home Button')");
-                Sql("INSERT INTO RepairTypes (Id, RepairType) VALUES (4, 'Replace Power Supply')");
-                Sql("SET IDENTITY_INSERT RepairTypes OFF");
+            Sql("INSERT INTO TypeOfDevice(Type) Values('--Please Select--')");
+            Sql("INSERT INTO TypeOfDevice(Type) Values('iPad')");
+            Sql("INSERT INTO TypeOfDevice(Type) Values('School Laptop')");
+            Sql("INSERT INTO TypeOfDevice(Type) Values('CFT Laptop')");
 
-                Sql("SET IDENTITY_INSERT Devices ON");
-                Sql("INSERT INTO Devices (Id, DeviceTypeId, Edquip, Serial, OampsUpdated,IntuneUpdate,IndemnitySigned,WriteOff) VALUES (1, 2,'CFT1674063', 'C02T68CKFVH3','True','True','True','False')");
-                Sql("SET IDENTITY_INSERT People OFF");
-            }
+            Sql("INSERT INTO RoleDevice(Role) Values('--Please Select--')");
+            Sql("INSERT INTO RoleDevice(Role) Values('iPad')");
+            Sql("INSERT INTO RoleDevice(Role) Values('School Laptop')");
+            Sql("INSERT INTO RoleDevice(Role) Values('CFT Laptop')");
+
+
+
 
         }
         
@@ -214,38 +248,40 @@
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Loans", "People_Id", "dbo.People");
-            DropForeignKey("dbo.Loans", "Devices_Id", "dbo.Devices");
-            DropForeignKey("dbo.Loans", "Approvers_Id", "dbo.Approvers");
-            DropForeignKey("dbo.Approvers", "People_Id", "dbo.People");
-            DropForeignKey("dbo.Devices", "RepairTypes_Id", "dbo.RepairTypes");
-            DropForeignKey("dbo.Devices", "DeviceTypeId", "dbo.DeviceTypes");
-            DropForeignKey("dbo.Devices", "DeviceNotes_Id", "dbo.DeviceNotes");
+            DropForeignKey("dbo.Devices", "TypeOfDeviceId", "dbo.TypeOfDevices");
+            DropForeignKey("dbo.Devices", "RoleDeviceId", "dbo.RoleDevices");
+            DropForeignKey("dbo.Devices", "HasPowerSupplyRefId", "dbo.PowerSupplySelectOptions");
+            DropForeignKey("dbo.Loans", "DevicesId", "dbo.Devices");
+            DropForeignKey("dbo.Devices", "DamagedRefId", "dbo.DamagedSelectOptions");
+            DropForeignKey("dbo.Devices", "HasCoverRefId", "dbo.CoverSelectOptions");
+            DropForeignKey("dbo.Devices", "HasPowerCableRefId", "dbo.CableSelectOptions");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Approvers", new[] { "People_Id" });
-            DropIndex("dbo.Loans", new[] { "People_Id" });
-            DropIndex("dbo.Loans", new[] { "Devices_Id" });
-            DropIndex("dbo.Loans", new[] { "Approvers_Id" });
-            DropIndex("dbo.Devices", new[] { "RepairTypes_Id" });
-            DropIndex("dbo.Devices", new[] { "DeviceNotes_Id" });
-            DropIndex("dbo.Devices", new[] { "DeviceTypeId" });
+            DropIndex("dbo.Loans", new[] { "DevicesId" });
+            DropIndex("dbo.Devices", new[] { "DamagedRefId" });
+            DropIndex("dbo.Devices", new[] { "HasCoverRefId" });
+            DropIndex("dbo.Devices", new[] { "HasPowerCableRefId" });
+            DropIndex("dbo.Devices", new[] { "HasPowerSupplyRefId" });
+            DropIndex("dbo.Devices", new[] { "RoleDeviceId" });
+            DropIndex("dbo.Devices", new[] { "TypeOfDeviceId" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.People");
-            DropTable("dbo.Approvers");
+            DropTable("dbo.DevicesViewModels");
+            DropTable("dbo.TypeOfDevices");
+            DropTable("dbo.RoleDevices");
+            DropTable("dbo.PowerSupplySelectOptions");
             DropTable("dbo.Loans");
-            DropTable("dbo.RepairTypes");
-            DropTable("dbo.DeviceTypes");
-            DropTable("dbo.DeviceNotes");
+            DropTable("dbo.DamagedSelectOptions");
+            DropTable("dbo.CoverSelectOptions");
             DropTable("dbo.Devices");
+            DropTable("dbo.CableSelectOptions");
         }
     }
 }

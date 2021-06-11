@@ -10,6 +10,7 @@
 @using (Html.BeginForm("Import", "Devices", FormMethod.Post, new { enctype = "multipart/form-data" }))
 
 {
+    @Html.AntiForgeryToken()
     @Html.Raw(ViewBag.Error)
     <h5><strong><span> Select Excel File  </span></strong></h5>
     <input type="file" name="excelFile" />

@@ -1,0 +1,231 @@
+﻿@model IEnumerable<crssAssetDV.Models.People>
+
+@{
+    ViewBag.Title = "People";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1>Members</h1>
+
+<h3>Click to drag columns headers. <br> Drag a column to the first column to update graph with new data.</h3>
+<p>
+    @Html.ActionLink("Create New Person", "Create") |
+    @Html.ActionLink("Import People", "Import")
+</p>
+
+
+<table id="people" class="table table-bordered table-hover table-striped">
+
+    <thead>
+
+        <tr>
+            <th>MIS</th>
+            <th>Full Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Position</th>           
+            <th>On Leave</th>
+            <th>Left</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+
+    {
+
+    <script>
+        $(document).ready(function () {
+            moment.updateLocale(moment.locale(), { invalidDate: '' });
+            var table = $("#people").DataTable({
+                responsive: true,
+                fixedHeader: false,
+                colReorder: true,
+                ajax: {
+                    url: "/api/people",
+                    dataSrc: ""
+                },
+
+                dom: 'PBlfrtip',
+
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+                    'colvis'
+                ],
+
+                columns: [
+
+                    {
+                        data: "mis",
+                        render: function (data, type, people) {
+                            return "<a href='/people/edit/" + people.id + "'>" + people.mis + "</a>";
+                        }
+                    },
+                    {
+                        data: "fullName",
+                        render: function (data, type, people) {
+                            return "<a href='/people/edit/" + people.id + "'>" + people.fullName + "</a>";
+                        }
+                    },
+                    {
+                        data: "firstName",
+                        render: function (data, type, people) {
+                            return "<a href='/people/edit/" + people.id + "'>" + people.firstName + "</a>";
+                        }
+                    },
+                    {
+                        data: "lastName",
+                        render: function (data, type, people) {
+                            return "<a href='/people/edit/" + people.id + "'>" + people.lastName + "</a>";
+                        }
+                    },
+
+                    {
+                        data: "email",
+                        render: function (data, type, people) {
+                            return "<a href='/people/edit/" + people.id + "'>" + people.email + "</a>";
+                        }
+                    },
+
+                    {
+                        data: "position",
+                        render: function (data, type, people) {
+                            return "<a href='/people/edit/" + people.id + "'>" + people.position + "</a>";
+                        }
+                    },
+
+                    {
+                        data: "OnLeave",
+                        render: function (data, type, people) {
+                            if (data == false)
+                                return ('No');
+
+                            else if (data == false)
+                                return ('Yes');
+
+                            else (data == null)
+                            return ('No')
+
+                        }
+                    },
+
+                    {
+                        data: "Left",
+                        render: function (data, type, people) {
+                            if (data == false)
+                                return ('No');
+
+                            else if (data == false)
+                                return ('Yes');
+
+                            else (data == null)
+                            return ('No')
+
+                        }
+                    },
+
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-people-id=" + data + ">Delete</button>";
+                        }
+                    },
+                ]
+            });
+
+            // Create the chart with initial data
+            //var container = $('<div/>').insertBefore(table.table().container());
+
+            //var chart = Highcharts.chart(container[0], {
+            //    chart: {
+            //        type: 'pie',
+            //    },
+            //    title: {
+            //        text: '',
+            //    },
+            //    series: [
+            //        {
+            //            data: chartData(table),
+            //        },
+            //    ],
+            //});
+
+            // On each draw, update the data in the chart
+        //    table.on('draw', function () {
+        //        chart.series[0].setData(chartData(table));
+        //    });
+
+        //    $("#people").on("click", ".js-delete", function () {
+        //        var button = $(this);
+
+        //        bootbox.confirm("Are you sure you want to delete this person?", function (result) {
+        //            if (result) {
+        //                $.ajax({
+        //                    url: "/api/people/" + button.attr("data-people-id"),
+        //                    method: "DELETE",
+        //                    success: function () {
+        //                        table.row(button.parents("tr")).remove().draw();
+        //                    }
+        //                });
+        //            }
+        //        });
+        //    });
+
+        //});
+
+        //function chartData(table) {
+        //    var counts = {};
+
+        //    // Count the number of entries for each position
+        //    table
+        //        .column(0, { search: 'applied' })
+        //        .data()
+        //        .each(function (val) {
+        //            if (counts[val]) {
+        //                counts[val] += 1;
+        //            } else {
+        //                counts[val] = 1;
+        //            }
+        //        });
+
+        //    // And map it to the format highcharts uses
+        //    return $.map(counts, function (val, key) {
+        //        return {
+        //            name: key,
+        //            y: val,
+        //        };
+            });
+        //}
+
+
+    </script>
+
+}

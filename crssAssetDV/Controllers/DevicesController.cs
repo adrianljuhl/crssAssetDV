@@ -14,78 +14,61 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Reflection;
 using OfficeOpenXml;
-using OfficeOpenXml.Style;
+//using OfficeOpenXml.Style;
 using System.Drawing;
+using crssAssetDV.ViewModels;
+//using CSVLibraryAK;
+
 
 namespace crssAssetDV.Controllers
 {
     public class DevicesController : Controller
     {
-        //private ApplicationDbContext db = new ApplicationDbContext();
-        private ApplicationDbContext _context;
+
+        private readonly ApplicationDbContext _context;
+        //private readonly Devices devices;
+
         public DevicesController()
         {
             _context = new ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)
-        {           
-             _context.Dispose();     
+        {
+            _context.Dispose();
         }
 
-        // GET: Devices
+        // GET: DevicesController
         public ActionResult Index()
         {
-            var devices = _context.Devices.Include(c => c.TypeOfDevice).ToList();
-            return View(devices);
-        }
 
-        // GET: Devices/Details/5
-        public ActionResult Details(double? id)
-        {
-            if (id == null)
+            Process[] excelProcs = Process.GetProcessesByName("EXCEL");
+            foreach (Process proc in excelProcs)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                proc.Kill();
             }
-            Devices devices = _context.Devices.Find(id);
-            if (devices == null)    
-            {
-                return HttpNotFound();
-            }
-            return View(devices);
-        }
 
-        // GET: Devices/Create
-        public ActionResult Create()
-        {
             return View();
+
         }
 
-        // POST: Devices/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Brand,Model,Description,Edquip,Serial,SpecialisedDevice,BuildingLocation,HasPowerSupply,HasPowerCable,HasCover,Accessories,Damaged,WriteOff")] Devices devices)
+        // GET: DevicesController/Details/5
+        public ActionResult Details(int id)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Devices.Add(devices);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(devices);
-        }
-
-        // GET: Devices/Edit/5
-        public ActionResult Edit(double? id)
-        {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Devices devices = _context.Devices.Find(id);
+
+            var devices = _context.Devices
+                    .Include(t => t.TypeOfDevice)
+                    .Include(r => r.RoleDevice)
+                    .Include(d => d.DamagedSelectOption)
+                    .Include(d => d.DeviceNote)
+                    .SingleOrDefault(p => p.Id == id);
+
+
+
             if (devices == null)
             {
                 return HttpNotFound();
@@ -93,30 +76,111 @@ namespace crssAssetDV.Controllers
             return View(devices);
         }
 
-        // POST: Devices/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Brand,Model,Description,Edquip,Serial,SpecialisedDevice,BuildingLocation,HasPowerSupply,HasPowerCable,HasCover,Accessories,Damaged,WriteOff")] Devices devices)
+        // GET: Devices/New
+        public ActionResult New()
         {
-            if (ModelState.IsValid)
+            var devices = _context.Devices;
+            //var devices = _context.Devices
+            //    .Include(t => t.TypeOfDevice)
+            //    .Include(r => r.RoleDevice)
+            //    .Include(d => d.DamagedSelectOption);
+                
+            var typeOfDevices = _context.TypeOfDevices.ToList();
+            var roleDevices = _context.RoleDevices.ToList();
+            var damagedSelectOptions = _context.DamagedSelectOptions.ToList();
+            var deviceNotes = _context.DeviceNotes.ToList();
+
+            var viewModel = new DeviceFormViewModel
             {
-                _context.Entry(devices).State = EntityState.Modified;
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+
+                TypeOfDevices = typeOfDevices,
+                RoleDevices = roleDevices,
+                DamagedSelectOptions = damagedSelectOptions,
+                DeviceNotes = deviceNotes,
+                //devices = Devices,
+
+            };
+
+            return View("DeviceForm", viewModel);
+
+        }
+
+        [HttpPost]
+        public ActionResult Create(Device devices)
+        {
+            if (devices.Id == 0)
+                _context.Devices.Add(devices);
+            else
+            {
+                var deviceInDb = _context.Devices.Single(d => d.Id == devices.Id);
+                
+
+                deviceInDb.TypeOfDeviceId = devices.TypeOfDeviceId;
+                deviceInDb.Brand = devices.Brand;
+                deviceInDb.Model = devices.Model;
+                deviceInDb.Edquip = devices.Edquip;
+                deviceInDb.Serial = devices.Serial;
+                deviceInDb.RoleDeviceId = devices.RoleDeviceId;
+                deviceInDb.BuildingLocation = devices.BuildingLocation;
+                deviceInDb.Accessories = devices.Accessories;
+                deviceInDb.DamagedRefId = devices.DamagedRefId;
+                deviceInDb.WriteOff = devices.WriteOff;
+                deviceInDb.WriteOffDate = devices.WriteOffDate;
+                deviceInDb.WarrantyTo = devices.WarrantyTo;
+                deviceInDb.PurchaseDate = devices.PurchaseDate;
+                deviceInDb.AssetChecked = devices.AssetChecked;
+                deviceInDb.AppleModelRef = devices.AppleModelRef;
+                deviceInDb.Capacity = devices.Capacity;
+                deviceInDb.DeviceNoteId = devices.DeviceNoteId;
+
             }
-            return View(devices);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Devices");
+        }
+
+
+        // GET: Devices/Edit/5
+        public ActionResult Edit(int id)
+        {
+            var devices = _context.Devices
+                    .Include(t => t.TypeOfDevice)
+                    .Include(r => r.RoleDevice)
+                    .Include(d => d.DamagedSelectOption)
+                    .Include(d => d.DeviceNote)
+                    .SingleOrDefault(t => t.Id == id);
+
+            if (devices == null)
+                return HttpNotFound();
+
+            var viewModel = new DeviceFormViewModel
+            {
+                Devices = devices,
+                TypeOfDevices = _context.TypeOfDevices.ToList(),
+                RoleDevices = _context.RoleDevices.ToList(),
+                DamagedSelectOptions = _context.DamagedSelectOptions.ToList(),
+                DeviceNotes = _context.DeviceNotes.ToList()
+
+            };
+            return View("DeviceForm", viewModel);
+
         }
 
         // GET: Devices/Delete/5
-        public ActionResult Delete(double? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Devices devices = _context.Devices.Find(id);
+            //Devices devices = _context.Devices.Find(id);
+
+            var devices = _context.Devices
+                .Include(t => t.TypeOfDevice)
+                .Include(r => r.RoleDevice)
+                .Include(d => d.DamagedSelectOption)
+                .Include(d => d.DeviceNote)
+                .SingleOrDefault(t => t.Id == id);
+
             if (devices == null)
             {
                 return HttpNotFound();
@@ -127,163 +191,28 @@ namespace crssAssetDV.Controllers
         // POST: Devices/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(double id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Devices devices = _context.Devices.Find(id);
+            Device devices = _context.Devices.Find(id);
             _context.Devices.Remove(devices);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        public void ExportContentToCSV()
-        {
-            StringWriter strw = new StringWriter();
-            strw.WriteLine("\"Brand\",\"Model\",\"Description\",\"Edquip\",\"Serial\",\"Type\"");
-            Response.ClearContent();
-            Response.AddHeader("content-disposition",
-                                string.Format("attachment;filename=Devices_{0}.csv", DateTime.Now));
-            Response.ContentType = "text/csv";
 
-            var listDevices = _context.Devices.OrderBy(x => x.Edquip).ToList();
-            foreach (var listItem in listDevices)
-            {
-                strw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\"",
-                                             listItem.Brand, listItem.Model, listItem.Description, listItem.Edquip, listItem.Serial, listItem.TypeOfDevice));
-            }
-            Response.Write(strw.ToString());
-            Response.End();
-        }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        _context.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-
-        //NativeExport
-        public ActionResult NativeExport()
-        {
-            List<DevicesViewModel> devlist = _context.Devices.Select(x => new DevicesViewModel
-            {
-                Id = x.Id,
-                Brand = x.Brand,
-                Model = x.Model,
-                Description = x.Description,
-                Edquip = x.Edquip,
-                Serial = x.Serial,
-                SpecialisedDevice = x.SpecialisedDevice,
-                BuildingLocation = x.BuildingLocation,
-                HasPowerSupply = x.HasPowerSupply,
-                HasPowerCable = x.HasPowerCable,
-                HasCover = x.HasCover,
-                Accessories = x.Accessories,
-                DeviceNotes = x.DeviceNotes,
-                WriteOff = x.WriteOff,
-                TypeOfDevice = x.TypeOfDevice.Type,
-            }).ToList();
-
-            return View(devlist);
-        }
-
-        public void ExportToNative()
-        {
-            List<DevicesViewModel> devlist = _context.Devices.Select(x => new DevicesViewModel
-            {
-                Id = x.Id,
-                Brand = x.Brand,
-                Model = x.Model,
-                Description = x.Description,
-                Edquip = x.Edquip,
-                Serial = x.Serial,
-                SpecialisedDevice = x.SpecialisedDevice,
-                BuildingLocation = x.BuildingLocation,
-                HasPowerSupply = x.HasPowerSupply,
-                HasPowerCable = x.HasPowerCable,
-                HasCover = x.HasCover,
-                Accessories = x.Accessories,               
-                DeviceNotes = x.DeviceNotes,
-                WriteOff = x.WriteOff,
-                TypeOfDevice = x.TypeOfDevice.Type,
-            }).ToList();
-
-            ExcelPackage pck = new ExcelPackage();
-            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
-
-            ws.Cells["A1"].Value = "CRSS Asset Tracker";
-            ws.Cells["A2"].Value = "Report";
-
-            ws.Cells["B2"].Value = "Master Export";
-
-            ws.Cells["A3"].Value = "Date";
-            ws.Cells["B3"].Value = string.Format("{0:dd MMM yyyy} at {0:H mm tt}", DateTimeOffset.Now);
-
-            ws.Cells["A6"].Value = "Id";
-            ws.Cells["B6"].Value = "Brand";
-            ws.Cells["C6"].Value = "Model";
-            //ws.Cells["D6"].Value = "DeviceTypeId";
-            ws.Cells["D6"].Value = "Description";
-            ws.Cells["E6"].Value = "Edquip";
-            ws.Cells["F6"].Value = "Serial";
-            ws.Cells["G6"].Value = "SpecialisedDevice";
-            ws.Cells["H6"].Value = "BuildingLocation";
-            ws.Cells["I6"].Value = "HasPowerSupply";
-            ws.Cells["J6"].Value = "HasPowerCable";
-            ws.Cells["K6"].Value = "HasCover";
-            ws.Cells["L6"].Value = "Accessories";
-            //ws.Cells["M6"].Value = "RepairTypes";
-            ws.Cells["M6"].Value = "DeviceNotes";
-            ws.Cells["N6"].Value = "WriteOff";
-            ws.Cells["O6"].Value = "TypeOfDevice";
-
-            int rowstart = 7;
-            foreach (var item in devlist)
-            {
-                if (item.WriteOff == true)
-                {
-                    ws.Row(rowstart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    ws.Row(rowstart).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
-
-                }
-
-                ws.Cells[string.Format("A{0}", rowstart)].Value = item.Id;
-                ws.Cells[string.Format("B{0}", rowstart)].Value = item.Brand;
-                ws.Cells[string.Format("C{0}", rowstart)].Value = item.Model;
-                ws.Cells[string.Format("D{0}", rowstart)].Value = item.Description;
-                ws.Cells[string.Format("E{0}", rowstart)].Value = item.Edquip;
-                ws.Cells[string.Format("F{0}", rowstart)].Value = item.Serial;
-                ws.Cells[string.Format("G{0}", rowstart)].Value = item.SpecialisedDevice;
-                ws.Cells[string.Format("H{0}", rowstart)].Value = item.BuildingLocation;
-                ws.Cells[string.Format("I{0}", rowstart)].Value = item.HasPowerSupply;
-                ws.Cells[string.Format("J{0}", rowstart)].Value = item.HasPowerCable;
-                ws.Cells[string.Format("K{0}", rowstart)].Value = item.HasCover;
-                ws.Cells[string.Format("L{0}", rowstart)].Value = item.Accessories;
-                ws.Cells[string.Format("M{0}", rowstart)].Value = item.DeviceNotes;
-                ws.Cells[string.Format("N{0}", rowstart)].Value = item.WriteOff;
-                ws.Cells[string.Format("O{0}", rowstart)].Value = item.TypeOfDevice;
-                rowstart++;
-
-            }
-
-            ws.Cells["A:AZ"].AutoFitColumns();
-            Response.Clear();
-            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            Response.AddHeader("content-disposition", "attachment: filename= " + "ExcelReport.xlsx");
-            Response.BinaryWrite(pck.GetAsByteArray());
-            Response.End();
-        }
-
-        // GET: Devices/Import
+        //GET: Devices/Import
         public ActionResult Import()
         {
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Import(HttpPostedFileBase excelFile)
         {
+
+
             if (excelFile == null || excelFile.ContentLength == 0)
             {
                 ViewBag.Error = "Please select an Excel file. <br />";
@@ -304,18 +233,21 @@ namespace crssAssetDV.Controllers
                     Excel.Workbook workbook = application.Workbooks.Open(path);
                     Excel.Worksheet worksheet = workbook.ActiveSheet;
                     Excel.Range range = worksheet.UsedRange;
-                    List<Devices> listDevices = new List<Devices>();
+                    List<importModel> importDevices = new List<importModel>();
+                    List<Device> listDevices = new List<Device>();
 
                     for (int row = 2; row < range.Rows.Count; row++)
                     {
-                        Devices p = new Devices();
-
-                        p.Id = ((Excel.Range)range.Cells[row, 1]).Value;
+                        Device p = new Device();
                         p.Brand = ((Excel.Range)range.Cells[row, 2]).Text;
                         p.Model = ((Excel.Range)range.Cells[row, 3]).Text;
-                        p.Description = ((Excel.Range)range.Cells[row, 4]).Text;
-                        p.Edquip = ((Excel.Range)range.Cells[row, 9]).Text;
-                        p.Serial = ((Excel.Range)range.Cells[row, 10]).Text;
+                        p.DamagedRefId = Convert.ToInt32(((Excel.Range)range.Cells[row, 4]).Value);
+                        p.TypeOfDeviceId = Convert.ToInt32(((Excel.Range)range.Cells[row, 5]).Value);
+                        p.RoleDeviceId = Convert.ToInt32(((Excel.Range)range.Cells[row, 6]).Value);
+                        p.Edquip = ((Excel.Range)range.Cells[row, 7]).Text;
+                        p.Serial = ((Excel.Range)range.Cells[row, 8]).Text;
+                        p.Accessories = ((Excel.Range)range.Cells[row, 9]).Text;
+                        //p.WriteOff = Convert.ToBoolean(Convert.ToInt32(((Excel.Range)range.Cells[row, 11]).Value));
 
                         listDevices.Add(p);
                         _context.Devices.Add(p);

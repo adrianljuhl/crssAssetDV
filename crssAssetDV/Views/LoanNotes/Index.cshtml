@@ -1,0 +1,141 @@
+﻿@model IEnumerable<crssAssetDV.Models.LoanNote>
+
+@{
+    ViewBag.Title = "LoanNotes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3>Click to drag columns headers. <br> Drag a column to the first column to update graph with new data.</h3>
+<p>
+    @Html.ActionLink("Create New Loan Note", "New")
+
+</p>
+
+
+
+<table id="loanNotes" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>Loan Number</th>
+            <th>Note</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+
+    {
+
+    <script>
+        $(document).ready(function () {
+            moment.updateLocale(moment.locale(), { invalidDate: '' });
+            var table = $("#loanNotes").DataTable({
+                dom: 'PBlfrtip',
+                autoFill: false,
+                responsive: true,
+                fixedHeader: true,
+                colReorder: true,
+
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": true,
+                        "searchable": true
+                    },
+                    {
+                        "targets": [1],
+                        "visible": true,
+                        "searchable": true
+                    },
+                    {
+                        "targets": [2],
+                        "visible": true,
+                        "searchable": true
+                    },
+                ],
+
+                ajax: {
+                    url: "/api/loanNotes",
+                    dataSrc: ""
+
+                },
+
+                buttons: [
+
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+                    'colvis'
+                ],
+
+
+
+                columns: [
+
+                    {
+                        data: "loanId"
+                    },
+
+                    {
+                        data: "Note",
+                        render: function (data, type, loanNote) {
+                            return "<a href='/loanNotes/edit/" + loanNote.id + "'>" + loanNote.note + "</a>";
+                        }
+                    },
+
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-loanNote-id=" + data + ">Delete</button>";
+                        }
+                    },
+                ]
+
+            });
+
+            $("#loanNotes").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure you want to delete this loan entry?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/loanNotes/" + button.attr("data-loanNote-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
+}

@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Success";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>The following people have been added.</h2>
+</p>
+<div>
+    <h6>@Html.ActionLink("Home", "Index", "Home") | @Html.ActionLink("Back to List", "Index") </h6>
+</div>
+</p>
+<table cellpadding="2" cellspacing="2" border="1">
+    <tr>
+
+        <th>Database Id</th>
+        <th>MIS</th>
+        <th>Full Name</th>
+        <th>First Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Position</th>
+        
+    </tr>
+    @foreach (var p in ViewBag.ListPeoples)
+    {
+        <tr>
+            <td>@p.Id</td>
+            <td>@p.MIS</td>
+            <td>@p.</td>           
+            <td>@p.FirstName</td>
+            <td>@p.LastName</td>
+            <td>@p.Email</td>
+            <td>@p.Position</td>
+            
+        </tr>
+    }
+
+</table>
+
+

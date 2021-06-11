@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Coomera Rivers State School Asset Tracking System</title>
+    <title>@ViewBag.Title - CRSS School Asset Records and Housekeeping System</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -15,13 +15,14 @@
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             </button>
-            <a class="navbar-brand" href="/">CRSS Asset Tracking System</a>
+            <a class="navbar-brand" href="/">CRSS School Asset Records And Housekeeping</a>
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
                 <ul class="nav navbar-nav mr-auto">
                     <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="/People/Index" class="nav-link">People</a></li>
                     <li class="nav-item"><a href="/Devices/Index" class="nav-link">Devices</a></li>
-                    <li class="nav-item"><a href="/Home/About" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="/Home/Contact" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="/Loans/Index" class="nav-link">Loans</a></li>
+
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right mr-auto">
@@ -31,17 +32,19 @@
             </div>
         </div>
     </nav>
+    <br />
     <div class="container body-content">
-        </br>
+
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Coomera Rivers State School Asset Tracking System</p>
+            <p>&copy; @DateTime.Now.Year - School Asset Records And Housekeeping.</p>
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/lib")
     @RenderSection("scripts", required: false)
 </body>
 </html>

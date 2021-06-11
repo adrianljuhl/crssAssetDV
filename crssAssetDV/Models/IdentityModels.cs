@@ -22,8 +22,17 @@ namespace crssAssetDV.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Loans> Loans { get; set; }
-        // public DbSet<TypeOfDevice> typeOfDevices { get; set; }
+        public DbSet<Loan> Loans { get; set; }
+        public DbSet<Device> Devices { get; set; }
+        public DbSet<TypeOfDevice> TypeOfDevices { get; set; }
+        public DbSet<RoleDevice> RoleDevices { get; set; }
+        public DbSet<DamagedSelectOption> DamagedSelectOptions { get; set; }
+        //public DbSet<DeviceNote> DeviceNotes { get; set; }
+        public DbSet<People> Peoples { get; set; }
+        public DbSet<LoanType> LoanTypes { get; set; }
+
+
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -34,9 +43,18 @@ namespace crssAssetDV.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<crssAssetDV.Models.Devices> Devices { get; set; }
-        public System.Data.Entity.DbSet<crssAssetDV.Models.TypeOfDevice> TypeOfDevices { get; set; }
+        //public System.Data.Entity.DbSet<crssAssetDV.Models.People> People { get; set; }
 
-       
+        public System.Data.Entity.DbSet<crssAssetDV.Models.RepairNote> RepairNotes { get; set; }
+
+        public System.Data.Entity.DbSet<crssAssetDV.Models.RepairType> RepairTypes { get; set; }
+
+        public System.Data.Entity.DbSet<crssAssetDV.Models.DeviceNote> DeviceNotes { get; set; }
+
+        public System.Data.Entity.DbSet<crssAssetDV.Models.LoanNote> LoanNotes { get; set; }
+
+        //public System.Data.Entity.DbSet<crssAssetDV.Models.LoanType> LoanTypes { get; set; }
+
+        //public System.Data.Entity.DbSet<crssAssetDV.Models.DevicesViewModel> DevicesViewModels { get; set; }
     }
 }

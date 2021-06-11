@@ -11,7 +11,8 @@ namespace crssAssetDV.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public decimal Id { get; set; }
+        public int Id { get; set; }
         public string Type { get; set; }
+        //public List<Device> Devices { get; set; }
     }
 }

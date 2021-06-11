@@ -21,9 +21,9 @@ namespace crssAssetDV.Controllers
         }
 
         // GET: TypeOfDevices/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(decimal id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -59,9 +59,9 @@ namespace crssAssetDV.Controllers
         }
 
         // GET: TypeOfDevices/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(decimal id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -90,9 +90,9 @@ namespace crssAssetDV.Controllers
         }
 
         // GET: TypeOfDevices/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(decimal id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -107,7 +107,7 @@ namespace crssAssetDV.Controllers
         // POST: TypeOfDevices/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(decimal id)
         {
             TypeOfDevice typeOfDevice = db.TypeOfDevices.Find(id);
             db.TypeOfDevices.Remove(typeOfDevice);

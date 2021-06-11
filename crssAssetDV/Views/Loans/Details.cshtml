@@ -1,4 +1,4 @@
-﻿@model crssAssetDV.Models.Loans
+﻿@model crssAssetDV.Models.Loan
 
 @{
     ViewBag.Title = "Details";
@@ -8,31 +8,63 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Loans</h4>
+    <h4>Loan</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.LoanType)
+            @Html.DisplayNameFor(model => model.Device.Brand)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LoanType)
+            @Html.DisplayFor(model => model.Device.Brand)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Location)
+            @Html.DisplayNameFor(model => model.People.MIS)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Location)
+            @Html.DisplayFor(model => model.People.MIS)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SuppliedPowerBlock)
+            @Html.DisplayNameFor(model => model.StartDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SuppliedPowerBlock)
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoanTypeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoanTypeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Classroom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Classroom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecialNote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpecialNote)
         </dd>
 
         <dt>
@@ -52,30 +84,52 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.oampsUpdated)
+            @Html.DisplayNameFor(model => model.SuppliedPowerBlock)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.oampsUpdated)
+            @Html.DisplayFor(model => model.SuppliedPowerBlock)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.intuneUpdated)
+            @Html.DisplayNameFor(model => model.OampsUpdated)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.intuneUpdated)
+            @Html.DisplayFor(model => model.OampsUpdated)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.edquipSigned)
+            @Html.DisplayNameFor(model => model.IntuneUpdated)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.edquipSigned)
+            @Html.DisplayFor(model => model.IntuneUpdated)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.EdquipSigned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EdquipSigned)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Current)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Current)
+        </dd>
     </dl>
+
+  
+
+            @Html.Partial("_LoanNotesPartial", loan)
+ 
+
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |

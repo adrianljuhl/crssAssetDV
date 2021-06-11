@@ -1,0 +1,112 @@
+﻿@model IEnumerable<crssAssetDV.Models.Loan>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Device.Brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.People.MIS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReturnDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LoanType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Classroom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecialNote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SuppliedCable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SuppliedCover)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SuppliedPowerBlock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OampsUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IntuneUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EdquipSigned)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Current)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Device.Brand)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.People.MIS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReturnDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoanId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Classroom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpecialNote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SuppliedCable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SuppliedCover)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SuppliedPowerBlock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OampsUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IntuneUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EdquipSigned)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Current)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

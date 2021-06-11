@@ -3,21 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Migrations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace crssAssetDV.Models
 {
     public class People
     {
-        public decimal Id { get; set; }
-        public bool Staff { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string MIS { get; set; }
+        public string FullName { get; set; }
+        public string FirstName { get; set; }       
         
-        public string FirstName { get; set; }
-        
+        [Display(Name = "Surname")]
         public string LastName { get; set; }
+        
         public string Email { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string Address3 { get; set; }
-        public string Phone { get; set; }
+        public string Position { get; set; }
+       
+        public bool OnLeave { get; set; }
+        public bool Left { get; set; }
+
+
+
     }
 }

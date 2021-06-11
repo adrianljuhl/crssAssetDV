@@ -1,0 +1,75 @@
+﻿@model crssAssetDV.Models.RepairNote
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RepairNote</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Device.Brand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Device.Brand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Loan.LoanType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Loan.LoanType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.People.MIS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.People.MIS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RepairType.Repair)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RepairType.Repair)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RepairDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RepairDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoanNote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoanNote)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RepairCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RepairCost)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

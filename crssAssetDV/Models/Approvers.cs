@@ -11,6 +11,7 @@ namespace crssAssetDV.Models
 
     public int Id { get; set; }
     public People People { get; set; }
+    public int peopleId { get; set; }
 
     }
 }

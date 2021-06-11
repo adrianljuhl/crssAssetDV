@@ -10,18 +10,18 @@ namespace crssAssetDV.Controllers
 {
     public class ExcelExportController : Controller
     {
-        private IList<Devices> device = new List<Devices>();
+        private IList<Device> device = new List<Device>();
 
         public ExcelExportController()
         {
             for (int i=0; i < 20; i++)
             {
-                device.Add(new Devices()
+                device.Add(new Device()
                 {
                     Id = i + 1,
                     Brand = "Brand" + (i + 1).ToString(),
                     Model = "Model" + (i + 1).ToString(),
-                    Description = "Description" + (i + 1).ToString(),
+
                     Edquip = "Edquip" + (i + 1).ToString(),
                     Serial = "Serial" + (i + 1).ToString(),
                 });

@@ -1,0 +1,136 @@
+﻿@model crssAssetDV.Models.Device
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Devices</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOfDevice.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfDevice.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Edquip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Edquip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Serial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Serial)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleDevice.Role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleDevice.Role)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuildingLocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuildingLocation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HasPowerSupplyRefId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HasPowerSupplyRefId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HasPowerCableRefId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HasPowerCableRefId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HasCoverRefId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HasCoverRefId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Accessories)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Accessories)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DamagedRefId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DamagedRefId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WriteOff)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WriteOff)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
