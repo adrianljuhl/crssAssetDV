@@ -6,12 +6,15 @@ using crssAssetDV.Models;
 
 namespace crssAssetDV.ViewModels
 {
-    public class LoanNoteFormViewModel
+    public class LoanNoteViewModel
     {
         public List<LoanType> LoanTypes { get; set; }
         public List<People> Peoples { get; set; }
         public List<Device> Devices { get; set; }
-        public List<LoanNote> LoanNote { get; set; }
-        public Loan Loan { get; set; }
+        //public List<Loan> Loans{ get; set; }
+        public Loan Loans { get; set; }
+        public IEnumerable<LoanNote> LoanNotes { get; set; }
+
+
     }
 }

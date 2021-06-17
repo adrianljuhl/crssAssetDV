@@ -25,9 +25,10 @@ namespace crssAssetDV.Api
         public IHttpActionResult GetLoans(string query = null)
         {
             var loansQuery = _context.Loans
-                .Include(c => c.Device)               
+                .Include(c => c.Device)
                 .Include(c => c.LoanType)
                 .Include(c => c.People);
+                
 
             var loanDtos = loansQuery
                 .ToList()

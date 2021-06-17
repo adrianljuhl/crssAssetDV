@@ -67,5 +67,9 @@ namespace crssAssetDV.Models
         [Display(Name = "Current")]
         public bool Current { get; set; }
 
+        public static implicit operator Loan(List<Loan> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

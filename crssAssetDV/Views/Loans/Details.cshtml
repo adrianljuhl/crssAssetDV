@@ -1,4 +1,4 @@
-﻿@model crssAssetDV.Models.Loan
+﻿@model crssAssetDV.ViewModels.LoanNoteViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -7,131 +7,157 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>Loan</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Device.Brand)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Device.Brand)
-        </dd>
+@using (Html.BeginForm("Details", "Loans"))
+{
+    @Html.HiddenFor(model => model.Loans.Id)
+    @Html.AntiForgeryToken()
+}
+    <div>
+        <h4>Loan</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.People.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Loans.People.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.People.MIS)
-        </dt>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.DeviceId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Loans.Device.Edquip, new { htmlAttributes = new { @class = "form-control" } })
 
-        <dd>
-            @Html.DisplayFor(model => model.People.MIS)
-        </dd>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.DeviceId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Loans.Device.Serial, new { htmlAttributes = new { @class = "form-control" } })
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ReturnDate)
-        </dt>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.ReturnDate)
-        </dd>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.LoanTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Loans.LoanType.Type, new { htmlAttributes = new { @class = "form-control" } })
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LoanTypeId)
-        </dt>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.LoanTypeId)
-        </dd>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Loans.Classroom, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(m => m.Loans.Classroom, new { htmlAttributes = new { @class = "form-control" } })
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Classroom)
-        </dt>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Classroom)
-        </dd>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Loans.StartDate, new { htmlAttributes = new { @class = "form-control" } })
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SpecialNote)
-        </dt>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.SpecialNote)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SuppliedCable)
-        </dt>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.SpecialNote, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Loans.SpecialNote, new { htmlAttributes = new { @class = "form-control" } })
 
-        <dd>
-            @Html.DisplayFor(model => model.SuppliedCable)
-        </dd>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SuppliedCover)
-        </dt>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.SuppliedCable, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.DisplayFor(model => model.Loans.SuppliedCable)
 
-        <dd>
-            @Html.DisplayFor(model => model.SuppliedCover)
-        </dd>
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SuppliedPowerBlock)
-        </dt>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.SuppliedCover, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.DisplayFor(model => model.Loans.SuppliedCover)
 
-        <dd>
-            @Html.DisplayFor(model => model.SuppliedPowerBlock)
-        </dd>
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OampsUpdated)
-        </dt>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.SuppliedPowerBlock, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.DisplayFor(model => model.Loans.SuppliedPowerBlock)
 
-        <dd>
-            @Html.DisplayFor(model => model.OampsUpdated)
-        </dd>
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IntuneUpdated)
-        </dt>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.OampsUpdated, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.DisplayFor(model => model.Loans.OampsUpdated)
 
-        <dd>
-            @Html.DisplayFor(model => model.IntuneUpdated)
-        </dd>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.IntuneUpdated, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.DisplayFor(model => model.Loans.IntuneUpdated)
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EdquipSigned)
-        </dt>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.EdquipSigned, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.DisplayFor(model => model.Loans.EdquipSigned)
 
-        <dd>
-            @Html.DisplayFor(model => model.EdquipSigned)
-        </dd>
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Current)
-        </dt>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.Current, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.DisplayFor(model => model.Loans.Current)
 
-        <dd>
-            @Html.DisplayFor(model => model.Current)
-        </dd>
-    </dl>
+                    </div>
+                </div>
+            </div>
 
-  
+            <div class="form-group">
+                @Html.LabelFor(model => model.Loans.ReturnDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Loans.ReturnDate, new { htmlAttributes = new { @class = "form-control" } })
 
-            @Html.Partial("_LoanNotesPartial", loan)
- 
+                </div>
+            </div>
+
+           @foreach (var LoanNote in Model.LoanNotes)
+        {
+            @LoanNote.Note 
+        }
 
 
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p>
+
+        @Html.ActionLink("Back to List", "Index")
+    </p>

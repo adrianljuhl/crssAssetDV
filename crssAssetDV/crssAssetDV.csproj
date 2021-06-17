@@ -394,6 +394,7 @@
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\Approvers.cs" />
     <Compile Include="Models\Device.cs" />
+    <Compile Include="ViewModels\LoanNoteViewModel.cs" />
     <Compile Include="ViewModels\LoanNoteFormViewModel.cs" />
     <Compile Include="ViewModels\LoanFormViewModel.cs" />
     <Compile Include="ViewModels\importModel.cs" />
@@ -1439,6 +1440,7 @@
     <Content Include="Views\LoanNotes\Index.cshtml" />
     <Content Include="Views\Shared\_LoanNotesPartial.cshtml" />
     <Content Include="Views\LoanNotes\View.cshtml" />
+    <Content Include="Views\LoanNotes\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

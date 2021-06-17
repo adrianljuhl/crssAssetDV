@@ -51,34 +51,49 @@ namespace crssAssetDV.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var loanNotes = _context.LoanNotes
-                    
-                    .Include(r => r.Loan)                  
-                    .SingleOrDefault(p => p.Id == id);
+            var loanNote = _context.LoanNotes
+                .SingleOrDefault(p => p.Id == id);
 
+            //var loanTypes = _context.LoanTypes.ToList();
+            //var people = _context.Peoples.ToList();
+            //var devices = _context.Devices.ToList();
+            //var loans = _context.Loans.ToList();
 
+            var vModel = new LoanNoteViewModel();
 
-            if (loanNotes == null)
+            //{
+            //    LoanNote = new LoanNote(),
+            //    Loans = loans,
+            //    Devices = devices,
+            //    LoanTypes = loanTypes,
+            //    Peoples = people,
+
+            //};
+
+            if (loanNote == null)
             {
                 return HttpNotFound();
             }
-            return View(loanNotes);
+            return View(vModel);
         }
 
         // GET: LoanNotes/New
         public ActionResult New()
         {
-            
-            var loans = _context.Loans.ToList();
-            var viewModel = new LoanNoteFormViewModel
 
+            var loanNote = _context.LoanNotes;
+            var loan = _context.Loans.ToList();
+           
+            var vModel = new LoanNoteViewModel
             {
-                LoanNote = new LoanNote(),
-                Loans = loans,
+
+                LoanNotes = loanNote,
+                Loans = loan,
+                
 
             };
 
-            return View("LoanNoteForm", viewModel);
+            return View("LoanNoteForm", vModel);
 
         }
 
@@ -88,14 +103,14 @@ namespace crssAssetDV.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new LoanNoteFormViewModel
+                var vModel = new LoanNoteViewModel
                 {
-                    LoanNote = loanNote,
+                    LoanNotes = (IEnumerable<LoanNote>)loanNote,
                     Loans = _context.Loans.ToList()
 
                 };
 
-                return View("LoanNoteFormViewModel", viewModel);
+                return View("LoanNoteViewModel", vModel);
             }
             if (loanNote.Id == 0)
                 _context.LoanNotes.Add(loanNote);
@@ -121,9 +136,9 @@ namespace crssAssetDV.Controllers
             if (loanNote == null)
                 return HttpNotFound();
 
-            var viewModel = new LoanNoteFormViewModel
+            var viewModel = new LoanNoteViewModel
             {
-                LoanNote = loanNote,
+                LoanNotes = (IEnumerable<LoanNote>)loanNote,
                 Loans = _context.Loans.ToList()
 
 

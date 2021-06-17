@@ -47,25 +47,50 @@ namespace crssAssetDV.Controllers
         // GET: LoansController/Details/5
         public ActionResult Details(int id)
         {
-            if (id == 0)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
-            var loans = _context.Loans
-                    //.Include(t => t.LoanType)
-                    .Include(r => r.People)
-                    .Include(d => d.Device)
-                    .SingleOrDefault(p => p.Id == id);
+                var loans = _context.Loans
+                        .Include(t => t.LoanType)
+                        .Include(r => r.People)
+                        .Include(d => d.Device)
+                        .SingleOrDefault(t => t.Id == id);
 
+                if (loans == null)
+                    return HttpNotFound();
 
-            if (loans == null)
-            {
-                return HttpNotFound();
-            }
-            return View(loans);
+                var vModel = new LoanNoteViewModel
+                {
+                    Loans = loans,
+                    LoanTypes = _context.LoanTypes.ToList(),
+                    Peoples = _context.Peoples.ToList(),
+                    Devices = _context.Devices.ToList(),
+                    LoanNotes =_context.LoanNotes.ToList()
 
+                };
+                //return View("LoanForm", vModel);
+                return View(vModel);
 
+            //var loan = _context.Loans
+            //        .Include(t => t.LoanType)
+            //        .Include(r => r.People)
+            //        .Include(d => d.Device)
+            //        .SingleOrDefault(t => t.Id == id);
+
+            //var loans = _context.Loans.Find(id);
+            //var loanNote = _context.LoanNotes.ToList();                    
+            //var loanTypes = _context.LoanTypes.ToList();
+            //var people = _context.Peoples.ToList();
+            //var devices = _context.Devices.ToList();
+
+            //var vModel = new LoanNoteViewModel
+
+            //{
+            //    Loans = new Loan(),
+            //    Devices = devices,
+            //    LoanTypes = loanTypes,
+            //    Peoples = people,
+
+            //};
+            //return View(vModel);
 
         }
 
