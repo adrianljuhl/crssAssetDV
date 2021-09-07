@@ -239,14 +239,14 @@ namespace crssAssetDV.Controllers
                     for (int row = 2; row < range.Rows.Count; row++)
                     {
                         Device p = new Device();
-                        p.Brand = ((Excel.Range)range.Cells[row, 2]).Text;
-                        p.Model = ((Excel.Range)range.Cells[row, 3]).Text;
-                        p.DamagedRefId = Convert.ToInt32(((Excel.Range)range.Cells[row, 4]).Value);
-                        p.TypeOfDeviceId = Convert.ToInt32(((Excel.Range)range.Cells[row, 5]).Value);
-                        p.RoleDeviceId = Convert.ToInt32(((Excel.Range)range.Cells[row, 6]).Value);
-                        p.Edquip = ((Excel.Range)range.Cells[row, 7]).Text;
-                        p.Serial = ((Excel.Range)range.Cells[row, 8]).Text;
-                        p.Accessories = ((Excel.Range)range.Cells[row, 9]).Text;
+                        p.Brand = ((Excel.Range)range.Cells[row, 1]).Text;
+                        p.Model = ((Excel.Range)range.Cells[row, 2]).Text;
+                        p.DamagedRefId = Convert.ToInt32(((Excel.Range)range.Cells[row, 3]).Value);
+                        p.TypeOfDeviceId = Convert.ToInt32(((Excel.Range)range.Cells[row, 4]).Value);
+                        p.RoleDeviceId = Convert.ToInt32(((Excel.Range)range.Cells[row, 5]).Value);
+                        p.Edquip = ((Excel.Range)range.Cells[row, 6]).Text;
+                        p.Serial = ((Excel.Range)range.Cells[row, 7]).Text;
+                        p.Accessories = ((Excel.Range)range.Cells[row, 8]).Text;
                         //p.WriteOff = Convert.ToBoolean(Convert.ToInt32(((Excel.Range)range.Cells[row, 11]).Value));
 
                         listDevices.Add(p);

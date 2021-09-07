@@ -558,6 +558,7 @@
     <Content Include="Content\DataTables\css\scroller.jqueryui.min.css" />
     <Content Include="Content\DataTables\css\scroller.semanticui.css" />
     <Content Include="Content\DataTables\css\scroller.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\searchBuilder.bootstrap4.min.css" />
     <Content Include="Content\DataTables\css\select.bootstrap.css" />
     <Content Include="Content\DataTables\css\select.bootstrap.min.css" />
     <Content Include="Content\DataTables\css\select.bootstrap4.css" />
@@ -652,6 +653,7 @@
     <Content Include="Scripts\DataTables\dataTables.rowReorder.min.js" />
     <Content Include="Scripts\DataTables\dataTables.scroller.js" />
     <Content Include="Scripts\DataTables\dataTables.scroller.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.searchBuilder.min.js" />
     <Content Include="Scripts\DataTables\dataTables.select.js" />
     <Content Include="Scripts\DataTables\dataTables.select.min.js" />
     <Content Include="Scripts\DataTables\dataTables.semanticui.js" />
@@ -670,6 +672,7 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\searchBuilder.bootstrap4.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />

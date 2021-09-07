@@ -150,10 +150,34 @@
                 </div>
             </div>
 
-           @foreach (var LoanNote in Model.LoanNotes)
-        {
-            @LoanNote.Note 
-        }
+            <H3> Loan Notes</H3>
+                        
+             
+            @foreach (var item in Model.Lo)
+
+            {
+                <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Loan:
+                                    <br />
+                                </td>
+
+                                <td>
+                                    Comment:
+                                    @LoanNote.Note<br />
+                                </td>
+                            </tr>                           
+                            }
+
+                        </tbody>
+
+
+                    </table>
+
+
+            }
 
 
 </div>

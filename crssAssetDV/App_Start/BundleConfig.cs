@@ -14,7 +14,10 @@ namespace crssAssetDV
                         
                         "~/Scripts/DataTables/jquery.datatables.min.js",
                         "~/Scripts/DataTables/dataTables.bootstrap4.min.js",
-                        
+                        "~/Scripts/DataTables/searchBuilder.bootstrap4.min.js",
+                        "~/Scripts/DataTables/dataTables.searchBuilder.min.js",
+
+
                         "~/Scripts/datatables.jqueryui.min.js",
 
                         "~/Scripts/DataTables/datatables.fixedHeader.min.js",
@@ -74,6 +77,7 @@ namespace crssAssetDV
                             "~/Content/DataTables/css/buttons.dataTables.min.css",
                             //"~/Content/DataTables/css/buttons.bootstrap4.min.css",
                             "~/Content/DataTables/css/responsive.bootstrap4.min.css",
+                            "~/Content/DataTables/css/searchBuilder.bootstrap4.min.css",
 
                             "~/Content/DataTables/css/colReorder.dataTables.min.css",
 

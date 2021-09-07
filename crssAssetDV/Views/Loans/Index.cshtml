@@ -46,7 +46,8 @@
             $(document).ready(function () {
                 moment.updateLocale(moment.locale(), { invalidDate: '' });
                 var table = $("#loans").DataTable({
-                    dom: 'PBlfrtip',
+                    //dom: 'QPBlfrtip',
+                    dom: 'Qfrtip',
                     autoFill: false,
                     responsive: true,
                     fixedHeader: true,
@@ -75,7 +76,7 @@
                         },
                         {
                             "targets": [4],
-                            "visible": true,
+                            "visible": false,
                             "searchable": true
                         },
                         {
@@ -194,7 +195,7 @@
                             }
                         },
                         {
-                            data: "loanType.type"
+                            data: "loanType"
 
                         },
                         {
@@ -273,21 +274,6 @@
                                 return "<a href='/loans/edit/" + loan.id + "'>" + loan.edquipSigned + "</a>";
                             }
                         },
-
-                        //{
-                        //    data: "buildingLocation",
-
-                        //    "render": function (data, type, device) {
-
-                        //        if (data == null)
-
-                        //            return ('');
-
-                        //        else
-
-                        //            return "<a href='/devices/edit/" + device.id + "'>" + device.buildingLocation + "</a>";
-                        //    }
-                        //},
 
                         {
                             data: "id",

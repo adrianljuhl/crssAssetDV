@@ -11,9 +11,12 @@ namespace crssAssetDV.ViewModels
         public List<LoanType> LoanTypes { get; set; }
         public List<People> Peoples { get; set; }
         public List<Device> Devices { get; set; }
-        //public List<Loan> Loans{ get; set; }
-        public Loan Loans { get; set; }
+        
+        //public IEnumerable<Loan> Loans { get; set; }
         public IEnumerable<LoanNote> LoanNotes { get; set; }
+        
+      
+        public Loan Loans{ get; set; }
 
 
     }
